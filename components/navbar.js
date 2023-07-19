@@ -3,13 +3,13 @@ import Image from 'next/image';
 import styles from '../styles/navbar.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
+import React from 'react';
 
 function button(link,linktext,dropdown,dropdowncontents,dropdownlinks){
   return (
     <div className={styles.option}>
-      <Link href={link}>{linktext}</Link>
-      <div class
-      {dropdown?(<div className="dropdown">)+dropdowncontents.map((content,index) => (<Link href={dropdownlinks[index]}>{content}</Link>)</div>):(<></>)}
+      <Link href={link}>&nbsp;&nbsp;{linktext}&#9660;&nbsp;&nbsp;</Link>
+      {dropdown?(<div className={styles.dropdown}>{dropdowncontents.map((content,index)=><Link href={dropdownlinks[index]}>{content}</Link>)}</div>):(<></>)}
     </div>
   );
 }
@@ -18,7 +18,7 @@ function button(link,linktext,dropdown,dropdowncontents,dropdownlinks){
 export default function Navbar() {
   return (
     <div className={styles.bar}>
-      {button("/","Option 1")}
+      {button("/","Option 1",true,["Hi"],["/"])}
     </div>
   )
 }
