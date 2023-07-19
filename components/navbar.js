@@ -19,6 +19,7 @@ export default function Navbar() {
   return (
     <div className={styles.bar}>
       {button("/","Option 1",true,["Hi"],["/"])}
+      {button("/","Option 1",false)}
     </div>
   )
 }
