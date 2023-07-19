@@ -8,7 +8,7 @@ import React from 'react';
 function button(link,linktext,dropdown,dropdowncontents,dropdownlinks){
   return (
     <div className={styles.option}>
-      <Link href={link}>&nbsp;&nbsp;{linktext}&#9660;&nbsp;&nbsp;</Link>
+      <Link href={link}>&nbsp;&nbsp;{dropdown?<>{linktext}&#9660;</>:<>{linktext}</>}&nbsp;&nbsp;</Link>
       {dropdown?(<div className={styles.dropdown}>{dropdowncontents.map((content,index)=><Link href={dropdownlinks[index]}>{content}</Link>)}</div>):(<></>)}
     </div>
   );
@@ -18,8 +18,8 @@ function button(link,linktext,dropdown,dropdowncontents,dropdownlinks){
 export default function Navbar() {
   return (
     <div className={styles.bar}>
-      {button("/","Option 1",true,["Hi"],["/"])}
-      {button("/","Option 1",false)}
+      {button("/","CFB Recruiting",true,["Recruits Scraper","Create Your Own Composite"],["/","/"])}
+      {button("/","Option 2",false)}
     </div>
   )
 }
