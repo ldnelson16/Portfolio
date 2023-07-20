@@ -120,3 +120,33 @@
 .option:hover .dropdown {
   display: block;
 }
+
+.subdropdown {
+  display: none;
+  position: absolute;
+  background-color: #3b4145;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  color: black;
+  border-right: 2px solid grey;
+  border-bottom: 4px solid grey;
+}
+.subdropdown a {
+  color: #f3ffff;
+  font-size: 18px;
+  line-height: normal;
+  padding: 5px;
+  text-decoration: none;
+  display: inherit;
+  text-align: center;
+  min-height: 40px;
+  font-weight: lighter;
+}
+.subdropdown a:hover {
+  color: #d1d1d1;
+  background-color: #3b4155;
+}
+
+.dropdown:hover .subdropdown {
+  display: inline;
+}
