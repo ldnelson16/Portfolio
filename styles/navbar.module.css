@@ -73,7 +73,7 @@
   min-width: 15px;
   border-right: 2px solid grey;
   font-family: Minomu, Arial;
-  font-size: 25px;
+  font-size: 21px;
   font-weight: bold;
   text-align: center;
   line-height: 70px;
@@ -97,22 +97,23 @@
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   color: black;
   border-right: 2px solid grey;
-  border-bottom: 4px solid grey;
+  border-bottom: 3px solid #7DF9FF;
+  border-collapse: collapse;
 }
 
 .dropdown a {
   color: #f3ffff;
   font-size: 18px;
-  line-height: normal;
-  padding: 5px 10px;
+  line-height: 100%;
+  padding: 3px 5px;
   text-decoration: none;
-  display: inherit;
+  display: inline-block;
   text-align: center;
-  min-height: 40px;
   font-weight: lighter;
+  margin: 0px;
 }
 
-.dropdown a:hover {
+.dropdown div:hover {
   color: #d1d1d1;
   background-color: #3b4155;
 }
@@ -123,19 +124,21 @@
 
 .subdropdown {
   display: none;
+  visibility: hidden;
   position: absolute;
   background-color: #3b4145;
   min-width: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  color: black;
   border-right: 2px solid grey;
-  border-bottom: 4px solid grey;
+  border-bottom: 3px solid #7DF9FF;
+  transition-delay: 0.5s;
 }
 .subdropdown a {
   color: #f3ffff;
   font-size: 18px;
   line-height: normal;
   padding: 5px;
+  margin: 0px;
   text-decoration: none;
   display: inherit;
   text-align: center;
@@ -148,5 +151,20 @@
 }
 
 .dropdown:hover .subdropdown {
-  display: inline;
+  display: inline-block;
+  visibility: visible;
+}
+
+.navlogo {
+  float: left;
+  padding: 0px;
+  border-right: 1px solid grey;
+  position: relative;
+  height: 70px;
+  width: 300px;
+  background-color: black;
+}
+
+@media screen (and max-width: 780px ){
+
 }
