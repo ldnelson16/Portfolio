@@ -5,12 +5,6 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import React from 'react';
 
-function handleResize(){
-  console.log("Resize occured");
-}
-
-window.addEventListener("resize",handleResize());
-
 function navlogo(){
   return (
     <div className={styles.navlogo}><Image priority src="/../public/images/bannerlogo.png" width={300} height={70} alt="Banner Logo with text 'LDNELSON16' and 'Portfolio'"></Image></div>
@@ -39,7 +33,7 @@ export default function Navbar() {
     <div className={styles.bar}>
       <script></script>
       {navlogo()}
-      {button("/","CFB Recruiting",true,[["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
+      {button("/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
       {button("/posts/first-post","Search Algorithms")}
       {button("/aboutme","About Me",true,[["Portfolio","/"],["About Me","/"],["GitHub Links","/"]])}
     </div>
