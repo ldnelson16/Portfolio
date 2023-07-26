@@ -8,6 +8,9 @@ import playerdata from '../data/classof2025data.json'
 function playerCell(data,key){
     return(
         <div className={styles.playerCell} id={key}>
+            <div className={styles.playerinfo}>
+                {data["name"]+data["Pos"]}
+            </div>
             {data["name"]+data["ON3 Rating"]}
         </div>
     );

@@ -1,8 +1,21 @@
 .playerCell{
     width: 100%;
-    font-size: 12px;
+    height: 25px;
+    border: 1px solid gray;
+    display: flex;
+    background-color: darkgrey;
+}
+.playerInfo{
+    width: 500px;
+    display: block;
+    border-right: 2px solid white;
+    padding: 1px;
+}
+.playerCell:hover{
+    background-color: lightgrey;
 }
 .playerTable{
     width: 100%;
     border: 5px solid black;
+    border-radius: 10px;
 }
