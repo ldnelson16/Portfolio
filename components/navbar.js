@@ -3,7 +3,6 @@ import Image from 'next/image';
 import styles from '../styles/navbar.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-import React from 'react';
 
 function navlogo(){
   return (
@@ -33,7 +32,7 @@ export default function Navbar() {
     <div className={styles.bar}>
       <script></script>
       {navlogo()}
-      {button("/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
+      {button("../pages/cfbrecruiting/sortable.js/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
       {button("/posts/first-post","Search Algorithms")}
       {button("/aboutme","About Me",true,[["Portfolio","/"],["About Me","/"],["GitHub Links","/"]])}
     </div>
