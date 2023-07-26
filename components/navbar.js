@@ -30,7 +30,6 @@ function button(link,linktext,dropdown,dropdowncontents){
 export default function Navbar() {
   return (
     <div className={styles.bar}>
-      <script></script>
       {navlogo()}
       {button("../pages/cfbrecruiting/sortable.js/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
       {button("/posts/first-post","Search Algorithms")}

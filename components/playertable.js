@@ -13,8 +13,12 @@ function playerCell(data,key){
     );
 }
 
-export default function playerTable(){
+export default function Playertable(){
+    let data = playerdata["players"];
     return(
-        {playerdata["players"].map((object,i)=>playerCell(object,i))}
-    );    
+        <div className={styles.playerTable}>
+            {console.log("DATA processing from JSON file")}
+            {data.map((datum,i)=>playerCell(datum,i))}
+        </div>
+    )    
 }
