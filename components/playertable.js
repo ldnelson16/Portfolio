@@ -8,10 +8,24 @@ import playerdata from '../data/classof2025data.json'
 function playerCell(data,key){
     return(
         <div className={styles.playerCell} id={key}>
-            <div className={styles.playerinfo}>
+            <div className={styles.nameInfo}>
                 {data["name"]+data["Pos"]}
             </div>
-            {data["name"]+data["ON3 Rating"]}
+            <div className={styles.relatedInfo}>
+                {data["name"]+data["ON3 Rating"]}
+            </div>
+            <div className={styles.ron3}>
+                {data["ON3 Rating"]}
+            </div>
+            <div className={styles.r247}>
+                {data["247 Rating"]}
+            </div>
+            <div className={styles.respn}>
+                {data["ESPN Rating"]}
+            </div>
+            <div className={styles.rrivals}>
+                {data["Rivals Rating"]}
+            </div>
         </div>
     );
 }
@@ -21,6 +35,7 @@ export default function Playertable(){
     return(
         <div className={styles.playerTable}>
             {console.log("DATA processing from JSON file")}
+            {playerCell({"name":"Name","ON3 Rating":"ON3 Rating","247 Rating":"247 Rating","ESPN Rating":"ESPN Rating","Rivals Rating":"Rivals Rating","Pos":"Pos:","City":"City","State":"State","Committ Status":"Commit"},-1)}
             {data.map((datum,i)=>playerCell(datum,i))}
         </div>
     )    

@@ -1,15 +1,48 @@
 .playerCell{
     width: 100%;
-    height: 25px;
     border: 1px solid gray;
-    display: flex;
+    display: grid;
+    grid-template-columns: 6fr repeat(4, 1fr);
+    grid-template-rows: .3fr .2fr;
+    grid-column-gap: 2px;
+    grid-row-gap: 0px;
     background-color: darkgrey;
 }
-.playerInfo{
-    width: 500px;
-    display: block;
-    border-right: 2px solid white;
+.nameInfo{
+    grid-area: 1/1/2/2;
+    border: 1px solid white;
+    border-bottom: 0px;
     padding: 1px;
+}
+.relatedInfo{
+    grid-area: 2/1/3/2;
+    border: 1px solid white;
+    border-top: 0px;
+    padding: 1px;
+}
+.ron3{
+    grid-area: 1/2/3/3;
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
+}
+.r247{
+    grid-area: 1/3/3/4;
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
+}
+.respn{
+    grid-area: 1/4/3/5;
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
+}
+.rrivals{
+    grid-area: 1/5/3/6;
+    border: 1px solid white;
+    text-align: center;
+    padding: 2px;
 }
 .playerCell:hover{
     background-color: lightgrey;
