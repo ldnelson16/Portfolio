@@ -5,15 +5,43 @@ import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import playerdata from '../data/classof2025data.json'
 
+function headerCell(){
+    return(
+        <div className={styles.headerCell} id="header">
+            <div className={styles.playerInfo}>
+                <em>Player Info</em>
+            </div>
+            <div className={styles.ron3}>
+                <em>ON3</em>
+            </div>
+            <div className={styles.r247}>
+                <em>247</em>
+            </div>
+            <div className={styles.respn}>
+                <em>ESPN</em>
+            </div>
+            <div className={styles.rrivals}>
+                <em>Rivals</em>
+            </div>
+            <div className={styles.commitInfo}>
+                <em>Commit Status</em>
+            </div>
+        </div>
+    );
+}
+
 function playerCell(data,key){
     return(
         <div className={styles.playerCell} id={key}>
             <div className={styles.playerInfo}>
+                <div className={styles.posInfo}>
+                    {data["Pos"]}
+                </div>
+                <div className={styles.locationInfo}>
+                    {data["City"]+", "+data["State"]}
+                </div>
                 <div className={styles.nameInfo}>
                     {data["name"]}
-                </div>
-                <div className={styles.relatedInfo}>
-                    {data["name"]+data["ON3 Rating"]}
                 </div>
             </div>
             <div className={styles.ron3}>
@@ -28,6 +56,7 @@ function playerCell(data,key){
             <div className={styles.rrivals}>
                 {data["Rivals Rating"]}
             </div>
+            {data["Commit Status"]==false?<div className={styles.commitInfo}>Uncommitted</div>:<div className={styles.commitInfo}><b>{data["Commit Status"]}</b></div>}
         </div>
     );
 }
@@ -37,7 +66,7 @@ export default function Playertable(){
     return(
         <div className={styles.playerTable}>
             {console.log("DATA processing from JSON file")}
-            {playerCell({"name":"Name","ON3 Rating":"ON3","247 Rating":"247","ESPN Rating":"ESPN","Rivals Rating":"Rivals","Pos":"Pos:","City":"City","State":"State","Committ Status":"Commit"},-1)}
+            {headerCell()}
             {data.map((datum,i)=>playerCell(datum,i))}
         </div>
     )    
