@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/playertable.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
-import playerdata from '../data/classof2025data.json'
+import * as playerdata from '../data/classof2025data.json';
 
 function headerCell(){
     return(
@@ -45,16 +45,16 @@ function playerCell(data,key){
                 </div>
             </div>
             <div className={styles.ron3}>
-                {data["ON3 Rating"]}
+                {data["ON3 Rating"][0]}
             </div>
             <div className={styles.r247}>
-                {data["247 Rating"]}
+                {data["247 Rating"][0]}
             </div>
             <div className={styles.respn}>
-                {data["ESPN Rating"]}
+                {data["ESPN Rating"][0]}
             </div>
             <div className={styles.rrivals}>
-                {data["Rivals Rating"]}
+                {data["Rivals Rating"][0]}
             </div>
             {data["Commit Status"]==false?<div className={styles.commitInfo}>Uncommitted</div>:<div className={styles.commitInfo}><b>{data["Commit Status"]}</b></div>}
         </div>
