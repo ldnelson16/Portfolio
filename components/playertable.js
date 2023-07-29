@@ -25,23 +25,24 @@ const DatesDropdown = ({dates,setValue}) => {
 
 const HeaderCell = ({setSort}) => {
     const handleClick = (event) => {
-        console.log("Clicked");
+        console.log("Now sorting based on "+event.currentTarget.dataset.value);
+        setSort(event.currentTarget.dataset.value);
     }
     return(
         <div className={styles.headerCell} id="header">
             <div className={styles.playerInfo}>
                 <em>Player Info</em>
             </div>
-            <div className={styles.ron3} value="ON3 Rating" onClick={handleClick}>
+            <div className={styles.ron3} data-value="ON3 Rating" onClick={handleClick}>
                 <em>ON3</em>
             </div>
-            <div className={styles.r247} value="247 Rating" onClick={handleClick}>
+            <div className={styles.r247} data-value="247 Rating" onClick={handleClick}>
                 <em>247</em>
             </div>
-            <div className={styles.respn} value="ESPN Rating" onClick={handleClick}>
+            <div className={styles.respn} data-value="ESPN Rating" onClick={handleClick}>
                 <em>ESPN</em>
             </div>
-            <div className={styles.rrivals} value="Rivals Rating" onClick={handleClick}>
+            <div className={styles.rrivals} data-value="Rivals Rating" onClick={handleClick}>
                 <em>Rivals</em>
             </div>
             <div className={styles.commitInfo}>
@@ -82,17 +83,24 @@ const PlayerCell = ({data,key,index}) => {
     );
 };
 
+function playersort(a,b,sort,value){
+    return b[sort][value] - a[sort][value];
+}
+
 const PlayerData = ({data,value,sort}) => {
+    const newdata = data.slice().sort((a,b)=>playersort(a,b,sort,value));
+    console.log("Sorted by "+sort);
+
     return(
         <>
-            {data.map((datum,i)=>(<PlayerCell data={datum} key={i} index={value}></PlayerCell>))}
+            {newdata.map((datum,i)=>(<PlayerCell data={datum} index={value} key={i}></PlayerCell>))}
         </>
     );
 };
 
 export default function Playertable(){
     const [value,setValue] = useState(0);
-    const [sorttype,setSort] = useState(undefined)
+    const [sorttype,setSort] = useState("name")
     return(
         <div className={styles.playerTable}>
             <DatesDropdown dates={playerdata["dates"]} setValue={setValue}></DatesDropdown>
