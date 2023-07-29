@@ -102,6 +102,10 @@ const playerCell = ({data,key,index}) => {
     );
 };*/
 
+function hello() {
+    return "hi";
+}
+
 function playerCell(data,key,index){
     return(
         <div className={styles.playerCell} id={key}>
