@@ -69,9 +69,9 @@ const HeaderCell = ({}) => {
             </div>
         </div>
     );
-}
+}*/
 
-const playerCell = ({data,key,index}) => {
+const PlayerCell = ({data,key,index}) => {
     return(
         <div className={styles.playerCell} id={key}>
             <div className={styles.playerInfo}>
@@ -100,11 +100,7 @@ const playerCell = ({data,key,index}) => {
             {data["Commit Status"]==false?<div className={styles.commitInfo}>Uncommitted</div>:<div className={styles.commitInfo}><b>{data["Commit Status"]}</b></div>}
         </div>
     );
-};*/
-
-function hello() {
-    return "hi";
-}
+};
 
 function playerCell(data,key,index){
     return(
@@ -138,17 +134,15 @@ function playerCell(data,key,index){
 }
 
 export default function Playertable(){
-    let data = playerdata["players"];
-    let dates = playerdata["dates"];
     const handleDropSelection = () => {
         console.log('Dropdown changed to '+date+'!');
       };
     return(
         <div className={styles.playerTable}>
-            {DatesDropdown(dates)}
+            {DatesDropdown(playerdata["dates"])}
             {console.log("DATA processing from JSON file")}
             <HeaderCell></HeaderCell>
-            {data.map((datum,i)=>playerCell(datum,i,0))}
+            {playerdata["players"].map((datum,i)=>(<PlayerCell data={datum} key={i} index={0}></PlayerCell>))}
         </div>
     )    
 }
