@@ -30,7 +30,7 @@ const HeaderCell = ({setSort}) => {
     }
     return(
         <div className={styles.headerCell} id="header">
-            <div className={styles.playerInfo}>
+            <div className={styles.playerInfo} data-value="name" onClick={handleClick}>
                 <em>Player Info</em>
             </div>
             <div className={styles.ron3} data-value="ON3 Rating" onClick={handleClick}>
@@ -78,17 +78,24 @@ const PlayerCell = ({data,key,index}) => {
             <div className={styles.rrivals}>
                 {data["Rivals Rating"][index]}
             </div>
-            {data["Commit Status"]==false?<div className={styles.commitInfo}>Uncommitted</div>:<div className={styles.commitInfo}><b>{data["Commit Status"]}</b></div>}
+            {data["Commit Status"][index]==false?<div className={styles.commitInfo}>Uncommitted</div>:data["Commit Status"][index]=="No Data Yet"?<div className={styles.commitInfo}>No Data</div>:<div className={styles.commitInfo}><b>{data["Commit Status"][index]}</b></div>}
         </div>
     );
 };
 
-function playersort(a,b,sort,value){
-    return -1;
+function playersort(a,b,sort,value,reverse=false){
+    let ret;
+    if(a[sort][value]=="-" && b[sort][value]=="-"){ret=0;}
+    else if (a[sort][value]=="-"){ret=1}
+    else if (b[sort][value]=="-"){ret=-1}
+    else {ret=b[sort][value]-a[sort][value];}
+    if(!reverse){return ret}
+    else{return -ret}
 }
 
 const PlayerData = ({data,value,sort}) => {
-    const newdata = data.slice().sort((a,b)=>playersort(a,b,sort,value));
+    var newdata = data.slice().sort((a,b)=>playersort(a,b,sort,value));
+    newdata=newdata.filter((obj)=>obj["ON3 Rating"][value]!="-"&&obj["247 Rating"][value]!="-"&&obj["ESPN Rating"][value]!="-"&&obj["Rivals Rating"][value]!="-");
     console.log("Sorted by "+sort);
 
     return(
