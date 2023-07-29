@@ -11,15 +11,20 @@ void function changeDates(value,index){
 
 }
 
-const DatesDropdown = ({dates,setValue}) => {
+const DatesDropdown = ({dates,setValue,date}) => {
     const handleDropSelection = (event) => {
         console.log("Changed dropdown selection to collect data from "+event.target.options[event.target.selectedIndex].text);
         setValue(event.target.value);
     }
     return(
-        <select className={styles.datedropdown} onChange={handleDropSelection}>
-            {dates.map((date,i)=>(<option value={i}>{date}</option>))}
-        </select>
+        <>
+            <h2>
+                Recruiting Site Data from {date}
+            </h2>
+            <select className={styles.datedropdown} onChange={handleDropSelection}>
+                {dates.map((date,i)=>(<option value={i}>{date}</option>))}
+            </select>
+        </>
     );
 }
 
@@ -84,7 +89,7 @@ const PlayerCell = ({data,key,index}) => {
 };
 
 function playersort(a,b,sort,value){
-    return b[sort][value] - a[sort][value];
+    return -1;
 }
 
 const PlayerData = ({data,value,sort}) => {
@@ -103,7 +108,7 @@ export default function Playertable(){
     const [sorttype,setSort] = useState("name")
     return(
         <div className={styles.playerTable}>
-            <DatesDropdown dates={playerdata["dates"]} setValue={setValue}></DatesDropdown>
+            <DatesDropdown dates={playerdata["dates"]} setValue={setValue} date={playerdata["dates"][value]}></DatesDropdown>
             {console.log("DATA processing from JSON file")}
             <HeaderCell setSort={setSort}></HeaderCell>
             <PlayerData data={playerdata["players"]} value={value} sort={sorttype}></PlayerData>

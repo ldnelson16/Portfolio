@@ -31,7 +31,7 @@ export default function Navbar() {
   return (
     <div className={styles.bar}>
       {navlogo()}
-      {button("../pages/cfbrecruiting/sortable.js/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
+      {button("../pages/cfbrecruiting/sortable.js/","CFB Recruiting",true,[["Sortable Recruits Data","/cfbrecruiting/sortable/"],["Recruits Scraper","/cfbrecruiting/myocomposite/"],["Create Your Own Composite","/",true,[["HI","/"]]]])}
       {button("/posts/first-post","Search Algorithms")}
       {button("/aboutme","About Me",true,[["Portfolio","/"],["About Me","/"],["GitHub Links","/"]])}
     </div>
