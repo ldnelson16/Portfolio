@@ -13,7 +13,6 @@ export default function Page(){
             <Navbar></Navbar>
             <h1>Heading</h1>
             <Playertable></Playertable>
-            
         </>
     );
 }

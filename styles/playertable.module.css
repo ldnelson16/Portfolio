@@ -1,4 +1,4 @@
-.playerCell{
+.playerCell {
     width: 100%;
     border: 1px solid gray;
     display: grid;
@@ -9,7 +9,8 @@
     background-color: darkgrey;
     font-size: 11px;
 }
-.headerCell{
+
+.headerCell {
     width: 100%;
     border: 1px solid gray;
     display: grid;
@@ -22,17 +23,20 @@
     font-weight: bold;
     text-align: center;
 }
-.headerCell .playerInfo{
+
+.headerCell .playerInfo {
     display: block;
     text-align: center;
 }
-.playerInfo{
+
+.playerInfo {
     grid-area: 1/1/2/2;
     border: 1px solid white;
     height: auto;
     display: flex;
 }
-.nameInfo{
+
+.nameInfo {
     grid-area: 1/1/2/2;
     padding: 1px;
     padding-left: 5px;
@@ -42,14 +46,16 @@
     margin-left: auto;
     padding-right: 10px;
 }
-.locationInfo{
+
+.locationInfo {
     grid-area: 1/1/2/2;
     padding: 1px;
     display: flexbox;
     flex-direction: row;
     width: 160px;
 }
-.posInfo{
+
+.posInfo {
     grid-area: 1/1/2/2;
     padding: 1px;
     display: flexbox;
@@ -59,43 +65,52 @@
     text-align: center;
     border-right: 1px solid gray;
 }
-.ron3{
+
+.ron3 {
     grid-area: 1/2/2/3;
     border: 1px solid white;
     text-align: center;
     padding: 2px;
 }
-.r247{
+
+.r247 {
     grid-area: 1/3/2/4;
     border: 1px solid white;
     text-align: center;
     padding: 2px;
 }
-.respn{
+
+.respn {
     grid-area: 1/4/2/5;
     border: 1px solid white;
     text-align: center;
     padding: 2px;
 }
-.rrivals{
+
+.rrivals {
     grid-area: 1/5/2/6;
     border: 1px solid white;
     text-align: center;
     padding: 2px;
 }
-.commitInfo{
+
+.commitInfo {
     grid-area: 1/6/2/7;
     border: 1px solid white;
     text-align: center;
 }
-.playerCell:hover{
+
+.playerCell:hover {
     background-color: lightgrey;
 }
+
 .playerCell div:hover {
     background-color: grey;
 }
-.playerTable{
+
+.playerTable {
     width: 60%;
     border: 5px solid black;
     border-radius: 10px;
+    margin-left: 5px;
 }
