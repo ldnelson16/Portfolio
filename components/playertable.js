@@ -6,11 +6,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import * as playerdata from '../data/classof2025data.json';
 
-void function changeDates(value,index){
-    console.log("Changing dates to "+value);
-
-}
-
 const DatesDropdown = ({dates,setValue,date}) => {
     const handleDropSelection = (event) => {
         console.log("Changed dropdown selection to collect data from "+event.target.options[event.target.selectedIndex].text);
