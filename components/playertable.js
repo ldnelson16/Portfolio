@@ -23,22 +23,25 @@ const DatesDropdown = ({dates,setValue}) => {
     );
 }
 
-const HeaderCell = ({}) => {
+const HeaderCell = ({setSort}) => {
+    const handleClick = (event) => {
+        console.log("Clicked");
+    }
     return(
         <div className={styles.headerCell} id="header">
             <div className={styles.playerInfo}>
                 <em>Player Info</em>
             </div>
-            <div className={styles.ron3}>
+            <div className={styles.ron3} value="ON3 Rating" onClick={handleClick}>
                 <em>ON3</em>
             </div>
-            <div className={styles.r247}>
+            <div className={styles.r247} value="247 Rating" onClick={handleClick}>
                 <em>247</em>
             </div>
-            <div className={styles.respn}>
+            <div className={styles.respn} value="ESPN Rating" onClick={handleClick}>
                 <em>ESPN</em>
             </div>
-            <div className={styles.rrivals}>
+            <div className={styles.rrivals} value="Rivals Rating" onClick={handleClick}>
                 <em>Rivals</em>
             </div>
             <div className={styles.commitInfo}>
@@ -79,14 +82,23 @@ const PlayerCell = ({data,key,index}) => {
     );
 };
 
+const PlayerData = ({data,value,sort}) => {
+    return(
+        <>
+            {data.map((datum,i)=>(<PlayerCell data={datum} key={i} index={value}></PlayerCell>))}
+        </>
+    );
+};
+
 export default function Playertable(){
     const [value,setValue] = useState(0);
+    const [sorttype,setSort] = useState(undefined)
     return(
         <div className={styles.playerTable}>
             <DatesDropdown dates={playerdata["dates"]} setValue={setValue}></DatesDropdown>
             {console.log("DATA processing from JSON file")}
-            <HeaderCell></HeaderCell>
-            {playerdata["players"].map((datum,i)=>(<PlayerCell data={datum} key={i} index={value}></PlayerCell>))}
+            <HeaderCell setSort={setSort}></HeaderCell>
+            <PlayerData data={playerdata["players"]} value={value} sort={sorttype}></PlayerData>
         </div>
     )    
 }
