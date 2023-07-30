@@ -4,7 +4,7 @@ import styles from '../styles/byotable.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { useState } from 'react';
-import * as playerdata from '../data/classof2025data.json';
+import * as playerdata from '../data/classof2024data.json';
 
 const DatesDropdown = ({dates,setValue,date}) => {
     const handleDropSelection = (event) => {
@@ -24,7 +24,7 @@ const DatesDropdown = ({dates,setValue,date}) => {
 }
 
 const CompositeWeight = ({percentdata,setPercent}) => {
-    const handlePercentages = (event) => {
+    const handlePercentages = () => {
         console.log("Percentages submitted");
         const {ron3,r247,respn,rrivals} = percentdata;
         var total = Number(ron3)+Number(r247)+Number(respn)+Number(rrivals);
@@ -36,6 +36,8 @@ const CompositeWeight = ({percentdata,setPercent}) => {
         console.log("Percent changed");
         const{name,value}=event.target;
         setPercent((percentdata)=>({...percentdata,[name]:value}));
+        console.log("% Data after percentChange ");
+        console.log(percentdata);
     }
 
     return(
@@ -55,6 +57,10 @@ const HeaderCell = ({setSort}) => {
     const handleClick = (event) => {
         console.log("Now sorting based on "+event.currentTarget.dataset.value);
         setSort(event.currentTarget.dataset.value);
+    }
+    const sortComposite = () => {
+        console.log("Sorting by composite");
+        setSort("Composite");
     }
     return(
         <div className={styles.headerCell} id="header">
@@ -76,28 +82,24 @@ const HeaderCell = ({setSort}) => {
             <div className={styles.commitInfo}>
                 <em>Commit Status</em>
             </div>
-            <div className={styles.compositeInfo}>
+            <div className={styles.compositeInfo} onClick={sortComposite}>
                 <em>Composite</em>
             </div>
         </div>
     );
 } 
 
-function calculateComposite(percentdata,ron3,r247,respn,rrivals){
-    const {rron3,rr247,rrespn,rrrivals} = percentdata;
-    if(rron3==0)
-    var total = Number(rron3)+Number(rr247)+Number(rrespn)+Number(rrrivals);
-    //total = total.toFixed(2);
-    if(total!=100){return ""}
-    return 100;
+function calculateComposite(percentdata,ranks,mins){
+    const {ron3,r247,respn,rrivals} = percentdata;
+    var total = Number(ron3)+Number(r247)+Number(respn)+Number(rrivals);
+    total = total.toFixed(2);
+    if(total!=100){return "";}
+    ranks.map((ele,i)=>{if((ele)=="-"){if(i!=3){ranks[i]=mins[i]-1;}else{ranks[i]=mins[i]-.1}}});
+    const val = ranks[0]*ron3/100+ranks[1]*r247/100+ranks[2]*respn/100+(ranks[3]-2.1)*rrivals/4;
+    return val.toFixed(3);
 }
 
-var min = 100;
-
-const PlayerCell = ({data,key,index,percentdata}) => {
-    if(data["ON3 Rating"][index]!="-"&&Number(data["ON3 Rating"][index]<min)){min=Number(data["ON3 Rating"][index]);}
-    console.log("min="+min);
-    
+const PlayerCell = ({data,key,index,percentdata,mins}) => {
     return(
         <div className={styles.playerCell} id={key}>
             <div className={styles.playerInfo}>
@@ -125,7 +127,7 @@ const PlayerCell = ({data,key,index,percentdata}) => {
             </div>
             {data["Commit Status"][index]==false?<div className={styles.commitInfo}>Uncommitted</div>:data["Commit Status"][index]=="No Data Yet"?<div className={styles.commitInfo}>No Data</div>:<div className={styles.commitInfo}><b>{data["Commit Status"][index]}</b></div>}
             <div className={styles.compositeInfo}>
-                {calculateComposite(percentdata,data["ON3 Rating"],data["247 Rating"],data["ESPN Rating"],data["Rivals Rating"])}
+                {calculateComposite(percentdata,[data["ON3 Rating"][index],data["247 Rating"][index],data["ESPN Rating"][index],data["Rivals Rating"][index]],mins)}
             </div>
         </div>
     );
@@ -142,13 +144,22 @@ function playersort(a,b,sort,value,reverse=false){
 }
 
 const PlayerData = ({data,value,sort,percentdata}) => {
-    var newdata = data.slice().sort((a,b)=>playersort(a,b,sort,value));
+    //Find mins for composite processing
+    var mins = [100,100,100,6.1];
+    ["ON3 Rating","247 Rating","ESPN Rating","Rivals Rating"].map((item,i)=>{
+        data.map((ele)=>{
+            if(ele[item][value]!="-"&&Number(ele[item][value])<mins[i]){mins[i]=Number(ele[item][value]);}
+        })
+    });
+    if(sort!="Composite"){var newdata = data.slice().sort((a,b)=>playersort(a,b,sort,value));}
+    else{var newdata=data.slice().sort((a,b)=>calculateComposite(percentdata,[b["ON3 Rating"][value],b["247 Rating"][value],b["ESPN Rating"][value],b["Rivals Rating"][value]],mins)-calculateComposite(percentdata,[a["ON3 Rating"][value],a["247 Rating"][value],a["ESPN Rating"][value],a["Rivals Rating"][value]],mins))}
     newdata=newdata.filter((obj)=>obj["ON3 Rating"][value]!="-"||obj["247 Rating"][value]!="-"||obj["ESPN Rating"][value]!="-"||obj["Rivals Rating"][value]!="-");
     console.log("Sorted by "+sort);
+    console.log("% Data in PlayerData");
 
     return(
         <>
-            {newdata.map((datum,i)=>(<PlayerCell data={datum} index={value} key={i} percentdata={percentdata}></PlayerCell>))}
+            {newdata.map((datum,i)=>(<PlayerCell data={datum} index={value} key={i} percentdata={percentdata} mins={mins}></PlayerCell>))}
         </>
     );
 };
@@ -157,6 +168,7 @@ export default function ByoTable(){
     const [value,setValue] = useState(0);
     const [sorttype,setSort] = useState("name");
     const [percentdata,setPercent] = useState({ron3:0,r247:0,respn:0,rrivals:0});
+    const [mins,setMins] = useState({ron3:100,r247:100,respn:100,rrivals:6.1});
     return(
         <div className={styles.playerTable}>
             <DatesDropdown dates={playerdata["dates"]} setValue={setValue} date={playerdata["dates"][value]}></DatesDropdown>
