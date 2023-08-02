@@ -4,20 +4,27 @@ import styles from '../styles/playertable.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 import { useState } from 'react';
-import * as playerdata from '../data/classof2025data.json';
+import * as classdata from '../data/recruitingdata.json';
 
-const DatesDropdown = ({dates,setValue,date}) => {
-    const handleDropSelection = (event) => {
-        console.log("Changed dropdown selection to collect data from "+event.target.options[event.target.selectedIndex].text);
+const DatesDropdown = ({dates,setValue,setRecclass,date,years}) => {
+    const handleDateSelection = (event) => {
+        console.log("Changed date dropdown selection to collect data from "+event.target.options[event.target.selectedIndex].text);
         setValue(event.target.value);
+    }
+    const handleYearSelection = (event) => {
+        console.log("Changed dropdown year selection to collect data from the class of "+event.target.options[event.target.selectedIndex].text);
+        setRecclass(event.target.value);
     }
     return(
         <>
             <h2>
                 Recruiting Site Data from {date}
             </h2>
-            <select className={styles.datedropdown} onChange={handleDropSelection}>
+            <select className={styles.dropdown} onChange={handleDateSelection}>
                 {dates.map((date,i)=>(<option value={i}>{date}</option>))}
+            </select>
+            <select className={styles.dropdown} onChange={handleYearSelection}>
+                {years.map((year)=>(<option value={year}>{year}</option>))}
             </select>
         </>
     );
@@ -105,15 +112,16 @@ const PlayerData = ({data,value,sort}) => {
     );
 };
 
-export default function Playertable(){
+export default function Playertable(classnum){
+    const [recclass,setRecclass] = useState(new Date().getFullYear()+1);
     const [value,setValue] = useState(0);
-    const [sorttype,setSort] = useState("name")
+    const [sorttype,setSort] = useState("name");
     return(
         <div className={styles.playerTable}>
-            <DatesDropdown dates={playerdata["dates"]} setValue={setValue} date={playerdata["dates"][value]}></DatesDropdown>
+            <DatesDropdown dates={classdata["Class"+String(recclass)]["dates"]} setValue={setValue} setRecclass={setRecclass} date={classdata["Class"+String(recclass)]["dates"][value]} years={classdata["years"]}></DatesDropdown>
             {console.log("DATA processing from JSON file")}
             <HeaderCell setSort={setSort}></HeaderCell>
-            <PlayerData data={playerdata["players"]} value={value} sort={sorttype}></PlayerData>
+            <PlayerData data={classdata["Class"+String(recclass)]["players"]} value={value} sort={sorttype}></PlayerData>
         </div>
     )    
 }

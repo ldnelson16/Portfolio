@@ -213,8 +213,22 @@ def runScrape():
         startyear = date.year+1
     else:
         startyear = date.year
-    processData(startyear)
-    processData(startyear+1)
+    #processData(startyear)
+    #processData(startyear+1)
+    #combine all files into one json
+    data={"years":[]}
+    for i in range(2024,startyear+2):
+        filename = "data/"+"classof"+str(i)+"data.json"
+        with open(filename) as f:
+            classdata = json.load(f)
+            data["Class"+str(i)] = classdata
+            data["years"]+=[i]
+    json_data = json.dumps(data)
+    with open("data/recruitingdata.json","w") as f:
+        f.write(json_data)
 
+#run scraper
 runScrape()
+
+#close browser
 browser.close()
