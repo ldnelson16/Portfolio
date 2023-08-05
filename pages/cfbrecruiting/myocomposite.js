@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Layout, { siteTitle } from '../../components/layout';
+import { siteTitle } from '../../components/layout';
 import Navbar from '../../components/navbar';
 import utilStyles from '../../styles/utils.module.css';
 import ByoTable from '../../components/byotable';
