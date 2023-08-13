@@ -204,14 +204,7 @@ def processData(classnum):
         nameandcities+=[(player["name"],player["City"])]
     file.close()
     print("Beginning Webscraping")
-
-    for player in data["players"]:
-        player["ON3 Rating"]=fillList(player["ON3 Rating"],len(dates))
-        player["247 Rating"]=fillList(player["247 Rating"],len(dates))
-        player["ESPN Rating"]=fillList(player["ESPN Rating"],len(dates))
-        player["Rivals Rating"]=fillList(player["Rivals Rating"],len(dates))
-
-    #webscrape(classnum,data,nameandcities,dates)
+    webscrape(classnum,data,nameandcities,dates)
     #alphabetize results
     data["players"]=sorted(data["players"],key=lambda p: p["name"])
     #write out data
