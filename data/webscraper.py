@@ -170,6 +170,11 @@ def addPlayer(name,ron3,r247,respn,rrivals,pos,city,state,team,data,nameandcitie
         data["players"][nameandcities.index((name,city))]["ESPN Rating"]+=[respn]
         data["players"][nameandcities.index((name,city))]["Rivals Rating"]+=[rrivals]
         data["players"][nameandcities.index((name,city))]["Commit Status"]+=[team]
+        if len(data["players"][nameandcities.index((name,city))]["ON3 Rating"])<len(dates):
+            data["players"][nameandcities.index((name,city))]["ON3 Rating"]=fillList(data["players"][nameandcities.index((name,city))]["ON3 Rating"],len(dates))
+            data["players"][nameandcities.index((name,city))]["247 Rating"]=fillList(data["players"][nameandcities.index((name,city))]["247 Rating"],len(dates))
+            data["players"][nameandcities.index((name,city))]["ESPN Rating"]=fillList(data["players"][nameandcities.index((name,city))]["ESPN Rating"],len(dates))
+            data["players"][nameandcities.index((name,city))]["Rivals Rating"]=fillList(data["players"][nameandcities.index((name,city))]["Rivals Rating"],len(dates))
     else:
         nameandcities+=[(name,city)]
         ron3=fillList([ron3],len(dates))
@@ -199,7 +204,14 @@ def processData(classnum):
         nameandcities+=[(player["name"],player["City"])]
     file.close()
     print("Beginning Webscraping")
-    webscrape(classnum,data,nameandcities,dates)
+
+    for player in data["players"]:
+        player["ON3 Rating"]=fillList(player["ON3 Rating"],len(dates))
+        player["247 Rating"]=fillList(player["247 Rating"],len(dates))
+        player["ESPN Rating"]=fillList(player["ESPN Rating"],len(dates))
+        player["Rivals Rating"]=fillList(player["Rivals Rating"],len(dates))
+
+    #webscrape(classnum,data,nameandcities,dates)
     #alphabetize results
     data["players"]=sorted(data["players"],key=lambda p: p["name"])
     #write out data
