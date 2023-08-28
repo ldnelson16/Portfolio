@@ -218,7 +218,7 @@ def runScrape():
         startyear = date.year+1
     else:
         startyear = date.year
-    processData(startyear)
+    # processData(startyear)
     processData(startyear+1)
     #combine all files into one json
     data={"years":[]}
